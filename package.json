@@ -1,0 +1,19 @@
+{
+  "name": "google-maps-api",
+  "version": "1.0.0",
+  "description": "A project to try out Google Maps API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AskYous/google-maps-api.git"
+  },
+  "author": "Yousef Shanawany <askyous@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AskYous/google-maps-api/issues"
+  },
+  "homepage": "https://github.com/AskYous/google-maps-api#readme"
+}
