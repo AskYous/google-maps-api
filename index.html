@@ -12,15 +12,31 @@
   </style>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDF0imxMjF6eZ4HxcAEq-lOI__OzC9fbe8"></script>
   <script type="text/javascript">
+  /*
+  * Initialized the map to the #map-canvas DOM element
+  */
   function initialize() {
+
+    // Map options
     var mapOptions = {
       center: { lat: -34.397, lng: 150.644},
       zoom: 8
     };
+
+    //Create the map object
     var mapCanvas = document.getElementById("map-canvas");
     var map = new google.maps.Map(mapCanvas, mapOptions);
+
+    //Put a marker on the map
+    var markerLocation = new google.maps.LatLng(-25.363882,131.044922);
+    var marker = new google.maps.Marker({
+      position: markerLocation,
+      map: map,
+      title: 'Hello, World!'
+    });
   }
-  // google.maps.event.addDomListener(window, 'load', initialize);
+
+  // Load the map when the 'browser' has finished loading the page
   google.maps.event.addDomListener(window, 'load', initialize);
   </script>
 </head>
