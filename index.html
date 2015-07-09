@@ -16,27 +16,43 @@
   * Initialized the map to the #map-canvas DOM element
   */
   function initialize() {
+    var flextronicsPosition = new google.maps.LatLng(37.418324, -121.979663);
+    var flexMilpitasPosition = new google.maps.LatLng(37.419788, -121.895183);
+    var flexXImage = 'https://goo.gl/GMQcJe';
 
     // Map options
     var mapOptions = {
-      center: { lat: -34.397, lng: 150.644},
+      center: flextronicsPosition,
       zoom: 8
     };
 
-    //Create the map object
+    // Create the map object
     var mapCanvas = document.getElementById("map-canvas");
     var map = new google.maps.Map(mapCanvas, mapOptions);
 
-    //Put a marker on the map
-    var markerLocation = new google.maps.LatLng(-25.363882,131.044922);
-    var marker = new google.maps.Marker({
-      position: markerLocation,
+    // Put a marker on the map
+    var flextronicsMarker = new google.maps.Marker({
+      position: flextronicsPosition,
       map: map,
       title: 'Hello, World!'
     });
+
+    // Bouncing Marker
+    var flexMilpitasMarker = new google.maps.Marker({
+      position: flexMilpitasPosition,
+      map: map,
+      title: 'Flextronics Milpitas, Bouncing',
+      animation: google.maps.Animation.BOUNCE,
+      icon: flexXImage
+    });
+
+    // Stop the bounce after 5 seconds
+    setTimeout(function(){
+      flexMilpitasMarker.setAnimation(null);
+    }, 5000);
   }
 
-  // Load the map when the 'browser' has finished loading the page
+  // Load the map when the browser has finished loading the page
   google.maps.event.addDomListener(window, 'load', initialize);
   </script>
 </head>
