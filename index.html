@@ -50,6 +50,15 @@
     setTimeout(function(){
       flexMilpitasMarker.setAnimation(null);
     }, 5000);
+
+    // Info window
+    var infoWindowDOM = document.createElement("div");
+    var infoWindow = new google.maps.InfoWindow({
+      content: infoWindowDOM
+    })
+
+    infoWindowDOM.innerHTML = "Hello world!";
+    infoWindow.open(map, flextronicsMarker);
   }
 
   // Load the map when the browser has finished loading the page
