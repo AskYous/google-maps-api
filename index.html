@@ -55,10 +55,28 @@
     var infoWindowDOM = document.createElement("div");
     var infoWindow = new google.maps.InfoWindow({
       content: infoWindowDOM
-    })
+    });
+
+    // Path (from Flextronics in America Center, to Flextronics in Milpitas)
+    var pathCoordinates = [flextronicsPosition, flexMilpitasPosition];
+    var path = new google.maps.Polyline({
+      path: pathCoordinates,
+      geodesic: true,
+      strokeColor: '#00FF00',
+      strokeOpacity: 1,
+      strokeWeight: 2,
+      map: map
+    });
+
+    // Insert one more point in the path
+    path.getPath().insertAt(1, new google.maps.LatLng(37.771070, -122.419203));
 
     infoWindowDOM.innerHTML = "Hello world!";
-    infoWindow.open(map, flextronicsMarker);
+
+    // Open the info window when the marker is clicked on
+    google.maps.event.addListener(flextronicsMarker, 'click', function(){
+      infoWindow.open(map, flextronicsMarker);
+    });
   }
 
   // Load the map when the browser has finished loading the page
