@@ -62,7 +62,7 @@
     var path = new google.maps.Polyline({
       path: pathCoordinates,
       geodesic: true,
-      strokeColor: '#00FF00',
+      strokeColor: '#FF0000',
       strokeOpacity: 1,
       strokeWeight: 2,
       map: map
@@ -70,6 +70,22 @@
 
     // Insert one more point in the path
     path.getPath().insertAt(1, new google.maps.LatLng(37.771070, -122.419203));
+
+    //Insert a random triangle in the map:
+    var triangleCoordinates = [
+      new google.maps.LatLng(37.465365, -121.944724),
+      new google.maps.LatLng(37.393389, -122.047034),
+      new google.maps.LatLng(37.409481, -121.795378)
+    ];
+    var triangle = new google.maps.Polygon({
+      paths: triangleCoordinates,
+      strokeColor: '#FFA500', //orange
+      strokeOpacity: .8,
+      strokeWeight: 2,
+      fillOpacity: .35,
+      fillColor: '#00FF00', //orange
+      map: map
+    });
 
     infoWindowDOM.innerHTML = "Hello world!";
 
