@@ -37,6 +37,7 @@
     var path;
     var polygon;
     var rectangle;
+    var circle;
 
     // The map itself
     var map;
@@ -48,6 +49,7 @@
     addPathToMap();
     addPolygonToMap();
     addRectangleToMap();
+    addCircleToMap();
 
     /**
     * Initializes the map into the page
@@ -173,6 +175,21 @@
       }
 
       rectangle = new google.maps.Rectangle(rectangleOptions)
+    }
+
+    /**
+    * Adds a circle to the map
+    */
+    function addCircleToMap(){
+      var circleCenter = new google.maps.LatLng(37.460971, -122.044277);
+      var circleRadius = 2000;
+      var circleOptions = {
+        center: circleCenter,
+        radius: circleRadius,
+        map: map
+      }
+
+      circle = new google.maps.Circle(circleOptions);
     }
   }
   </script>
