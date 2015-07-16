@@ -12,91 +12,169 @@
   </style>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDF0imxMjF6eZ4HxcAEq-lOI__OzC9fbe8"></script>
   <script type="text/javascript">
-  /*
-  * Initialized the map to the #map-canvas DOM element
-  */
-  function initialize() {
-    var flextronicsPosition = new google.maps.LatLng(37.418324, -121.979663);
-    var flexMilpitasPosition = new google.maps.LatLng(37.419788, -121.895183);
-    var flexXImage = 'https://goo.gl/GMQcJe';
-
-    // Map options
-    var mapOptions = {
-      center: flextronicsPosition,
-      zoom: 8
-    };
-
-    // Create the map object
-    var mapCanvas = document.getElementById("map-canvas");
-    var map = new google.maps.Map(mapCanvas, mapOptions);
-
-    // Put a marker on the map
-    var flextronicsMarker = new google.maps.Marker({
-      position: flextronicsPosition,
-      map: map,
-      title: 'Hello, World!'
-    });
-
-    // Bouncing Marker
-    var flexMilpitasMarker = new google.maps.Marker({
-      position: flexMilpitasPosition,
-      map: map,
-      title: 'Flextronics Milpitas, Bouncing',
-      animation: google.maps.Animation.BOUNCE,
-      icon: flexXImage
-    });
-
-    // Stop the bounce after 5 seconds
-    setTimeout(function(){
-      flexMilpitasMarker.setAnimation(null);
-    }, 5000);
-
-    // Info window
-    var infoWindowDOM = document.createElement("div");
-    var infoWindow = new google.maps.InfoWindow({
-      content: infoWindowDOM
-    });
-
-    // Path (from Flextronics in America Center, to Flextronics in Milpitas)
-    var pathCoordinates = [flextronicsPosition, flexMilpitasPosition];
-    var path = new google.maps.Polyline({
-      path: pathCoordinates,
-      geodesic: true,
-      strokeColor: '#FF0000',
-      strokeOpacity: 1,
-      strokeWeight: 2,
-      map: map
-    });
-
-    // Insert one more point in the path
-    path.getPath().insertAt(1, new google.maps.LatLng(37.771070, -122.419203));
-
-    //Insert a random triangle in the map:
-    var triangleCoordinates = [
-      new google.maps.LatLng(37.465365, -121.944724),
-      new google.maps.LatLng(37.393389, -122.047034),
-      new google.maps.LatLng(37.409481, -121.795378)
-    ];
-    var triangle = new google.maps.Polygon({
-      paths: triangleCoordinates,
-      strokeColor: '#FFA500', //orange
-      strokeOpacity: .8,
-      strokeWeight: 2,
-      fillOpacity: .35,
-      fillColor: '#00FF00', //orange
-      map: map
-    });
-
-    infoWindowDOM.innerHTML = "Hello world!";
-
-    // Open the info window when the marker is clicked on
-    google.maps.event.addListener(flextronicsMarker, 'click', function(){
-      infoWindow.open(map, flextronicsMarker);
-    });
-  }
-
   // Load the map when the browser has finished loading the page
-  google.maps.event.addDomListener(window, 'load', initialize);
+  google.maps.event.addDomListener(window, 'load', loadGoogleMap);
+
+  /**
+  * Loads the Google Map on the page, with the custom overlays.
+  */
+  function loadGoogleMap(){
+    // Coordinates
+    var flexAmericaCenterCoordinates = new google.maps.LatLng(37.418324, -121.979663);
+    var flexMilpitasCoordinates = new google.maps.LatLng(37.419788, -121.895183);
+
+    // Images
+    var flexXImage = 'http://i.imgur.com/f6BUO7J.png';
+
+    // Markers
+    var flexAmericaCenterMarker;
+    var flexMilpitasMarker;
+
+    // Info Windows
+    var infoWindow;
+
+    //Shapes
+    var path;
+    var polygon;
+    var rectangle;
+
+    // The map itself
+    var map;
+
+    setMapOptions();
+    addMarkers();
+    addBouncingMarker();
+    addInfoWindowToMarker();
+    addPathToMap();
+    addPolygonToMap();
+    addRectangleToMap();
+
+    /**
+    * Initializes the map into the page
+    */
+    function setMapOptions(){
+      //Set options
+      var mapOptions = {
+        center: flexAmericaCenterCoordinates,
+        zoom: 8
+      };
+
+      // Create the map object
+      var mapCanvas = document.getElementById("map-canvas");
+      map = new google.maps.Map(mapCanvas, mapOptions);
+    }
+
+    /**
+    * Adds markers into the map
+    */
+    function addMarkers(){
+      // Put a marker on the map
+      flexAmericaCenterMarker = new google.maps.Marker({
+        position: flexAmericaCenterCoordinates,
+        map: map,
+        title: 'This is Flex in America Center.'
+      });
+    }
+
+    /**
+    * Adds a bouncing marker
+    */
+    function addBouncingMarker(){
+      // Bouncing Marker
+      flexMilpitasMarker = new google.maps.Marker({
+        position: flexMilpitasCoordinates,
+        map: map,
+        title: 'Flextronics Milpitas, Bouncing',
+        animation: google.maps.Animation.BOUNCE,
+        icon: flexXImage
+      });
+
+      //Stop bouncing after five seconds
+      setTimeout(function(){
+        flexMilpitasMarker.setAnimation(null);
+      }, 5000);
+    }
+
+    /**
+    * Adds the info window to a marker
+    */
+    function addInfoWindowToMarker(){
+      // Info window
+      var infoWindowDOM = document.createElement("div");
+      var infoWindow = new google.maps.InfoWindow({
+        content: infoWindowDOM
+      });
+
+      infoWindowDOM.innerHTML = "Hello world!";
+
+      // Open the info window when the marker is clicked on
+      google.maps.event.addListener(flexAmericaCenterMarker, 'click', function(){
+        infoWindow.open(map, flexAmericaCenterMarker);
+      });
+    }
+
+    /**
+    * Adds a path to the map
+    */
+    function addPathToMap(){
+      // Path (from Flextronics in America Center, to Flextronics in Milpitas)
+      var pathCoordinates = [flexAmericaCenterCoordinates, flexMilpitasCoordinates];
+      path = new google.maps.Polyline({
+        path: pathCoordinates,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1,
+        strokeWeight: 2,
+        map: map
+      });
+
+      // Insert one more point in the path
+      path.getPath().insertAt(1, new google.maps.LatLng(37.771070, -122.419203));
+    }
+
+    /**
+    * Adds a path to the map
+    */
+    function addPolygonToMap(){
+      //Insert a random triangle in the map:
+      triangleCoordinates = [
+        new google.maps.LatLng(37.465365, -121.944724),
+        new google.maps.LatLng(37.393389, -122.047034),
+        new google.maps.LatLng(37.409481, -121.795378)
+      ];
+
+      var polygon = new google.maps.Polygon({
+        paths: triangleCoordinates,
+        strokeColor: '#FFA500', //orange
+        strokeOpacity: .8,
+        strokeWeight: 2,
+        fillOpacity: .35,
+        fillColor: '#00FF00', //orange
+        map: map
+      });
+    }
+
+    /**
+    * Adds a rectangle to the map
+    */
+    function addRectangleToMap(){
+      var firstBound = new google.maps.LatLng(37.496356, -122.131491);
+      var secondBound = new google.maps.LatLng(37.481393, -122.067848);
+      var rectangleBounds = new google.maps.LatLngBounds(firstBound, secondBound);
+
+      var rectangleOptions = {
+        strokeColor: '#0000FF',
+        strokeOpacity: .8,
+        strokeWeight: 2,
+        fillColor: '#0000FF',
+        fillOpacity: 0.35,
+        map: map,
+        bounds: rectangleBounds
+      }
+
+      rectangle = new google.maps.Rectangle(rectangleOptions)
+    }
+  }
   </script>
 </head>
 <body>
