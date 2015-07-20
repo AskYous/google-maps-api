@@ -39,6 +39,9 @@
     var rectangle;
     var circle;
 
+    // Other overlays
+    var groundOverlay;
+
     // The map itself
     var map;
 
@@ -50,6 +53,7 @@
     addPolygonToMap();
     addRectangleToMap();
     addCircleToMap();
+    addGroundOverlay();
 
     /**
     * Initializes the map into the page
@@ -190,6 +194,14 @@
       }
 
       circle = new google.maps.Circle(circleOptions);
+    }
+
+    /**
+    * Adds a ground overlay to the map
+    */
+    function addGroundOverlay(){
+      var americaCenterSignCoordinates = new google.maps.LatLng(37.417519, -121.977731);
+      
     }
   }
   </script>
