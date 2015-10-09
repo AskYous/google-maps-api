@@ -198,10 +198,17 @@
 
     /**
     * Adds a ground overlay to the map
+    /* Tutorial at: https://developers.google.com/maps/documentation/javascript/groundoverlays
     */
     function addGroundOverlay(){
-      var americaCenterSignCoordinates = new google.maps.LatLng(37.417519, -121.977731);
-      
+      var imageUrl = 'public/images/america-center-sign.png';
+      var imageBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(37.417396, -121.977973),
+        new google.maps.LatLng(37.417413, -121.977922)
+      );
+
+      groundOverlay = new google.maps.GroundOverlay(imageUrl, imageBounds);
+      groundOverlay.setMap(map);
     }
   }
   </script>
